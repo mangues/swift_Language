@@ -103,6 +103,7 @@ if !a11.contains("!"){
 
 //通过字面量进行字典初始化，注意等价于
 var a21:Dictionary<Int,String>=[200:"success",404:"not found"]
+var a24:Dictionary<Int,String>=Dictionary()
 var a22:[Int:String] = [200:"Success",300:"no found"]
 var a23 = [200:"Success",300:"no found"]
 
@@ -111,6 +112,8 @@ a22[200]   //读取
 a22[300] = "mangues"  //修改
 a22[400] = "bbbbbb"   //添加
 //a=[:]  //设置为空字典，等价于:a = [Int:String]()
+a22
+
 
 for code in a22.keys{
     println("code=\(code)")
@@ -124,24 +127,53 @@ for (code,description) in a22{
     println("code=\(code),description=\(description)")
 }
 
+//元组（Tuple）
+//
+//在开发过程中有时候会希望临时组织一个数据类型，此时可以使用一个结构体或者类，但是由于这个类型并没有那么复杂，如果定义起来又比较麻烦，此时可以考虑使用元组。
 
 
+var point = (x:50,y:100) //自动推断类型：（Int,Int）
+point.x    //可以用类似结构体的方式直接访问元素
+point.y
+point.0   //也可以采用类似数组的方式使用下标访问
+point.1
+
+//元祖也可以不指定元素名称，访问的时候只能使用下标
+let frame:(Int,Int,Int,Float) = (0,0,100,100.1)
+//也可以不指定类型
+let frame1 = (0,0,100,100.1,"wquehpqiow")
+println(frame)
 
 
+//注意下面的语句是错误的，如果指定了元祖的类型则无法指定元素名称
+//let frame:(Int,Int,Int,Int)=(x:0,y:0,width:100,height:100)
 
 
+var size = (width:100,25)//仅仅给其中一个元素命名
+size.width
+size.1
+
+//元组类型并不一定要相同
+var httpstu:(Int,String) = (200,"mangues")
+
+//一次赋值给多个变量
+var (status,description) = httpstu
+status
+description
+
+//接收元组的其中一个值忽略另一个值的使用"_"(注意在Swift中很多情况下使用_忽略某个值或变量)
+var (sta,_) = httpstu
+sta
 
 
+//元组作为函数的参数或返回值，借助元组实现了喊素的多个返回值
+func request()->(code:Int,description:String){
+    return (404,"not found")
+}
 
-
-
-
-
-
-
-
-
-
-
-
+var result=request()
+result.0 //结果：404
+result.1 //结果：not found
+result.code //结果：404
+result.description //结果：not found
 
